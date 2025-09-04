@@ -3,10 +3,7 @@ import { useActionData, useLoaderData, useNavigation } from "@remix-run/react";
 import { Page } from "@shopify/polaris";
 
 import { DiscountForm } from "../components/DiscountForm/DiscountForm";
-import {
-  createCodeDiscount,
-  createAutomaticDiscount,
-} from "../models/discounts.server";
+import { createCodeDiscount, createAutomaticDiscount } from "../models/discounts.server";
 import { DiscountMethod } from "../types/types";
 import { returnToDiscounts } from "../utils/navigation";
 
@@ -20,21 +17,10 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   const { functionId } = params;
   const formData = await request.formData();
   const discountData = formData.get("discount");
-  if (!discountData || typeof discountData !== "string")
-    throw new Error("No discount data provided");
+  if (!discountData || typeof discountData !== "string") throw new Error("No discount data provided");
 
-  const {
-    title,
-    method,
-    code,
-    combinesWith,
-    usageLimit,
-    appliesOncePerCustomer,
-    startsAt,
-    endsAt,
-    discountClasses,
-    configuration,
-  } = JSON.parse(discountData);
+  const { title, method, code, combinesWith, usageLimit, appliesOncePerCustomer, startsAt, endsAt, discountClasses, configuration } =
+    JSON.parse(discountData);
 
   const baseDiscount = {
     functionId,
@@ -48,19 +34,12 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
   let result;
 
   if (method === DiscountMethod.Code) {
-    result = await createCodeDiscount(
-      request,
-      baseDiscount,
-      code,
-      usageLimit,
-      appliesOncePerCustomer,
-      {
-        cartLinePercentage: parseFloat(configuration.cartLinePercentage),
-        orderPercentage: parseFloat(configuration.orderPercentage),
-        deliveryPercentage: parseFloat(configuration.deliveryPercentage),
-        collectionIds: configuration.collectionIds || [],
-      },
-    );
+    result = await createCodeDiscount(request, baseDiscount, code, usageLimit, appliesOncePerCustomer, {
+      cartLinePercentage: parseFloat(configuration.cartLinePercentage),
+      orderPercentage: parseFloat(configuration.orderPercentage),
+      deliveryPercentage: parseFloat(configuration.deliveryPercentage),
+      collectionIds: configuration.collectionIds || [],
+    });
   } else {
     result = await createAutomaticDiscount(request, baseDiscount, {
       cartLinePercentage: parseFloat(configuration.cartLinePercentage),
@@ -124,7 +103,7 @@ export default function VolumeNew() {
   };
 
   return (
-    <Page>
+    <Page title="Create Discount">
       <ui-title-bar title="Create product, order, and shipping discount">
         <button variant="breadcrumb" onClick={returnToDiscounts}>
           Discounts

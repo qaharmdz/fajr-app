@@ -1,15 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import {
-  Page,
-  Button,
-  Layout,
-  Card,
-  Text,
-  BlockStack,
-  InlineStack,
-  Box,
-} from "@shopify/polaris";
+import { Page, Button, Layout, Card, Text, BlockStack, InlineStack, Box } from "@shopify/polaris";
 
 import { getFunctions } from "../models/functions.server";
 import { returnToDiscounts } from "../utils/navigation";
@@ -25,7 +16,7 @@ export default function Index() {
   const { functions } = useLoaderData<typeof loader>();
 
   return (
-    <Page title="Discount Functions">
+    <Page title="Discount Functions - Fajr App">
       <Layout>
         <Layout.Section>
           <Card>
@@ -34,15 +25,12 @@ export default function Index() {
                 Welcome to Discount Functions
               </Text>
               <Text as="p" variant="bodyMd">
-                Create and manage custom discount functions for your store. Use
-                these functions to implement complex discount logic and pricing
-                rules.
+                Create and manage custom discount functions for your store. Use these functions to implement complex discount logic and
+                pricing rules.
               </Text>
               <Box paddingBlockStart="400">
                 <InlineStack gap="300">
-                  <Button onClick={returnToDiscounts}>
-                    View all discounts
-                  </Button>
+                  <Button onClick={returnToDiscounts}>View all discounts</Button>
                 </InlineStack>
               </Box>
             </BlockStack>
@@ -58,10 +46,7 @@ export default function Index() {
                     <Text as="span" variant="bodyMd" fontWeight="bold">
                       {item.title}
                     </Text>
-                    <Button
-                      variant="primary"
-                      url={`/app/discount/${item.id}/new`}
-                    >
+                    <Button variant="primary" url={`/app/discount/${item.id}/new`}>
                       Create discount
                     </Button>
                   </InlineStack>
