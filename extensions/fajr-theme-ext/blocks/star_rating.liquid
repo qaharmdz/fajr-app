@@ -1,13 +1,19 @@
 {% assign avg_rating = block.settings.product.metafields.demo.avg_rating.value | round %}
-<span style="color:{{ block.settings.colour }}">
-  {% render 'stars', rating: avg_rating %}
-</span>
-{% if avg_rating >= 4 %}
-  <br>
-  <img src="{{ "thumbs-up.png" | asset_img_url: '15x' }}" height="15" width="15" loading="lazy">
-  {{ 'ratings.home.recommendationText' | t }}
-{% endif %}
-
+<div style="display: flex; flex-direction:column; align-items: flex-start;">
+  <div style="display: flex; flex-direction:row; align-items: center; gap:1rem;">
+    <div style="color:{{ block.settings.colour }}">
+      {% render 'stars', rating: avg_rating %}
+    </div>
+    {% if avg_rating >= 4 %}
+      <div style="width:25px;">
+        <img src="{{ "thumbs-up.png" | asset_img_url: '15x' }}" height="15px" width="15px" loading="lazy">
+      </div>
+    {% endif %}
+  </div>
+  <div>
+      {{ 'ratings.home.recommendationText' | t }}
+  </div>
+</div>
 {% schema %}
 {
   "name": "Fajr :: Star Rating",
