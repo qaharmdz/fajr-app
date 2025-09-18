@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Page, Button, Layout, Card, Text, BlockStack, InlineStack, Box } from "@shopify/polaris";
+import { Page, Button, Layout, Card, Text, BlockStack, InlineStack, Box, Link } from "@shopify/polaris";
 
 import { getFunctions } from "../models/functions.server";
 import { returnToDiscounts } from "../utils/navigation";
@@ -12,7 +12,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export async function action() {}
 
-export default function Index() {
+export default function Discounts() {
   const { functions } = useLoaderData<typeof loader>();
 
   return (
@@ -27,6 +27,11 @@ export default function Index() {
               <Text as="p" variant="bodyMd">
                 Create and manage custom discount functions for your store. Use these functions to implement complex discount logic and
                 pricing rules.
+              </Text>
+              <Text as="p" variant="bodyMd">
+                <Link url="https://shopify.dev/docs/apps/build/discounts/build-discount-function?extension=javascript" target="_blank">
+                  Learn more :: Build a Discount Function
+                </Link>
               </Text>
               <Box paddingBlockStart="400">
                 <InlineStack gap="300">

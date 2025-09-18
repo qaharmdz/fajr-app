@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "760ed4dd6f7b9904c8701d284adb8d80"
-name = "fajr-app"
+name = "Fajr App Dev"
 application_url = "https://duty-cart-matthew-decision.trycloudflare.com"
 embedded = true
 handle = "fajr-app"

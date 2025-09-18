@@ -1,4 +1,5 @@
 import type { HeadersFunction, LoaderFunctionArgs } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { Link, Outlet, useLoaderData, useRouteError } from "@remix-run/react";
 import { NavMenu } from "@shopify/app-bridge-react";
 import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
@@ -11,8 +12,15 @@ export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authenticate.admin(request);
+  const url = new URL(request.url);
 
-  return { apiKey: process.env.SHOPIFY_API_KEY || "" };
+  if (url.pathname === "/app" || url.pathname === "/app/") {
+    throw redirect(`/app/dashboard?${url.searchParams.toString()}`);
+  }
+
+  return json({
+    apiKey: process.env.SHOPIFY_API_KEY || ""
+  });
 };
 
 export default function App() {
@@ -21,9 +29,11 @@ export default function App() {
   return (
     <AppProvider isEmbeddedApp apiKey={apiKey}>
       <NavMenu>
-        <Link to="/app" rel="home">
-          Home
+        <Link to="/app/dashboard" rel="home">
+          Dashboard
         </Link>
+        <Link to="/app/discounts">Discounts</Link>
+        <Link to="/app/modals">Modals</Link>
       </NavMenu>
       <Outlet />
     </AppProvider>
@@ -32,7 +42,8 @@ export default function App() {
 
 // Shopify needs Remix to catch some thrown responses, so that their headers are included in the response.
 export function ErrorBoundary() {
-  return boundary.error(useRouteError());
+  const error = useRouteError();
+  return boundary.error(error);
 }
 
 export const headers: HeadersFunction = (headersArgs) => {
