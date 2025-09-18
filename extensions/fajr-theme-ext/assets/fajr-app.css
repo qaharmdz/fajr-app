@@ -1,0 +1,48 @@
+/* Fajr App Styles */
+.fajr-app-container {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.fajr-app-container.active {
+  display: block;
+}
+
+.fajr-app-button {
+  background-color: #008060;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.fajr-app-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.fajr-app-content {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  width: 300px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+}
+
+.fajr-app-content.active {
+  display: block;
+}

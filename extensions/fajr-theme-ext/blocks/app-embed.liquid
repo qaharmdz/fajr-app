@@ -1,0 +1,32 @@
+{% schema %}
+{
+  "name": "Fajr App Embed",
+  "target": "head",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_app",
+      "label": "Enable app functionality",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_debug",
+      "label": "Enable debug mode",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
+
+{% if block.settings.enable_app %}
+  <!-- Load app assets -->
+  {{ 'fajr-app.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'fajr-app.js' | asset_url }}" defer="defer"></script>
+  
+  {% if block.settings.enable_debug %}
+    <script>
+      console.log('Fajr App: Debug mode enabled');
+    </script>
+  {% endif %}
+{% endif %}
